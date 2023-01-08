@@ -25,13 +25,19 @@ function createProject(templateDir, projectName) {
     JSON.stringify(projectPackageJson, null, 2)
   );
 
+  fs.renameSync(
+    path.resolve(projectDir, "gitignore"),
+    path.resolve(projectDir, ".gitignore")
+  );
+
   console.log("Instalando as dependências...");
+
   process.chdir(projectName);
-  execSync("npm install");
   execSync("git init -q");
+  execSync("npm install");
   execSync("git config --global core.safecrlf false");
   execSync("git add --all");
-  execSync('git commit -m "Projeto iniciado com nalyx-template-cli"');
+  execSync('git commit -m "chore: projeto iniciado com nalyx-template-cli"');
 
   console.log("Projeto pronto!");
 }
